@@ -1,26 +1,26 @@
 #! env ruby -w
 
 class Amazing
+  attr_reader :horizontal, :vertical
+
   def initialize(horizontal, vertical)
+    @horizontal = horizontal
+    @vertical = vertical
     @target = 0
     @result = ''
-    doit(horizontal, vertical)
+    doit
   end
 
   def to_s
     @result
   end
 
-  def clear
-    @result = ''
-  end
-
   def println
-    @result = @result + "\n"
+    @result << "\n"
   end
 
   def print(text)
-    @result = @result + text
+    @result << text
   end
 
   def rnd(count)
@@ -31,30 +31,21 @@ class Amazing
     @target = lineno
   end
 
-  def doit(horizontal, vertical)
-    clear
+  def doit
     print("Amazing - Copyright by Creative Computing, Morristown, NJ")
     println
 
-    h = horizontal
-    v = vertical
-    return if (h == 1 || v == 1)
+    return if (horizontal == 1 || vertical == 1)
 
-    wArray = Array.new(h+1) { Array.new(v+1, 0) }
-    vArray = Array.new(h+1) { Array.new(v+1, 0) }
+    wArray = Array.new(horizontal+1) { Array.new(vertical+1, 0) }
+    vArray = Array.new(horizontal+1) { Array.new(vertical+1, 0) }
 
     q = 0
     z = 0
-    x = rnd(h)
+    x = rnd(horizontal)
 
     # 130:170
-    (1..h).each { |i|
-      if i == x
-        print("+  ")
-      else
-        print("+--")
-      end
-    }
+    (1..horizontal).each { |i| i == x ? print('+  ') : print('+--') }
     # 180
     print("+")
     println
@@ -72,13 +63,13 @@ class Amazing
     while @target != -1
       case @target
         when 210
-          if r != h
+          if r != horizontal
             goto(250)
           else
             goto(220)
           end
         when 220
-          if s != v
+          if s != vertical
             goto(240)
           else
             goto(230)
@@ -125,7 +116,7 @@ class Amazing
             goto(310)
           end
         when 310
-          if r == h
+          if r == horizontal
             goto(350)
           else
             goto(320)
@@ -150,7 +141,7 @@ class Amazing
             goto(350)
           end
         when 350
-          if s != v
+          if s != vertical
             goto(380)
           else
             goto(360)
@@ -195,7 +186,7 @@ class Amazing
             goto(430)
           end
         when 430
-          if r == h
+          if r == horizontal
             goto(530)
           else
             goto(440)
@@ -207,7 +198,7 @@ class Amazing
             goto(450)
           end
         when 450
-          if s != v
+          if s != vertical
             goto(480)
           else
             goto(460)
@@ -252,7 +243,7 @@ class Amazing
             goto(530)
           end
         when 530
-          if s != v
+          if s != vertical
             goto(560)
           else
             goto(540)
@@ -298,7 +289,7 @@ class Amazing
             goto(620)
           end
         when 620
-          if r == h
+          if r == horizontal
             goto(720)
           else
             goto(630)
@@ -310,7 +301,7 @@ class Amazing
             goto(640)
           end
         when 640
-          if s != v
+          if s != vertical
             goto(670)
           else
             goto(650)
@@ -355,7 +346,7 @@ class Amazing
             goto(720)
           end
         when 720
-          if s != v
+          if s != vertical
             goto(750)
           else
             goto(730)
@@ -389,7 +380,7 @@ class Amazing
         when 780
           goto(980)
         when 790
-          if r == h
+          if r == horizontal
             goto(880)
           else
             goto(800)
@@ -401,7 +392,7 @@ class Amazing
             goto(810)
           end
         when 810
-          if s != v
+          if s != vertical
             goto(840)
           else
             goto(820)
@@ -435,7 +426,7 @@ class Amazing
         when 870
           goto(1020)
         when 880
-          if s != v
+          if s != vertical
             goto(910)
           else
             goto(890)
@@ -468,7 +459,7 @@ class Amazing
           r = r-1
           goto(960)
         when 960
-          if c == h * v + 1
+          if c == horizontal * vertical + 1
             goto(1200)
           else
             goto(970)
@@ -485,7 +476,7 @@ class Amazing
         when 1000
           vArray[r][s - 1] = 1
           s = s-1
-          if c == h * v + 1
+          if c == horizontal * vertical + 1
             goto(1200)
           else
             goto(1010)
@@ -513,7 +504,7 @@ class Amazing
           r = r+1
           goto(1070)
         when 1070
-          if c == h * v + 1
+          if c == horizontal * vertical + 1
             goto(1200)
           else
             goto(1080)
@@ -542,7 +533,7 @@ class Amazing
           goto(1130)
         when 1130
           s = s+1
-          if c == v * h + 1
+          if c == vertical * horizontal + 1
             goto(1200)
           else
             goto(1140)
@@ -577,10 +568,10 @@ class Amazing
     end
 
     # 1200
-    (1..v).each { |j|
+    (1..vertical).each { |j|
       print("|")    # 1210
 
-      (1..h).each { |i|
+      (1..horizontal).each { |i|
         if vArray[i][j] >= 2
           print("   ")  # 1240
         else
@@ -591,7 +582,7 @@ class Amazing
       print(" ")   # 1280
       println
 
-      (1..h).each { |i|
+      (1..horizontal).each { |i|
         if vArray[i][j] == 0
           print("+--")   # 1300, 1340
         elsif vArray[i][j] == 2
