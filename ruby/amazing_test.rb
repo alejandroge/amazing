@@ -49,7 +49,7 @@ class TestAmazing < Test::Unit::TestCase
 "+--+--+--+--+--+--+--+--+--+--+--+--+--+--+  +\n"
 
         srand 0
-        Amazing.doit(15, 20)
+        Amazing.new(15, 20)
 
         assert_equal expected, $result.to_s
     end
@@ -70,7 +70,7 @@ class TestAmazing < Test::Unit::TestCase
 "+--+  +--+--+\n"
 
         srand 100
-        Amazing.doit(4, 5)
+        Amazing.new(4, 5)
         assert_equal expected, $result.to_s
 
     end
