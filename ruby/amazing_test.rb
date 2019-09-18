@@ -49,9 +49,9 @@ class TestAmazing < Test::Unit::TestCase
 "+--+--+--+--+--+--+--+--+--+--+--+--+--+--+  +\n"
 
         srand 0
-        Amazing.new(15, 20)
+        result = Amazing.new(15, 20).to_s
 
-        assert_equal expected, $result.to_s
+        assert_equal expected, result
     end
 
     def testSeed100size4x5
@@ -70,8 +70,8 @@ class TestAmazing < Test::Unit::TestCase
 "+--+  +--+--+\n"
 
         srand 100
-        Amazing.new(4, 5)
-        assert_equal expected, $result.to_s
+        result = Amazing.new(4, 5).to_s
+        assert_equal expected, result
 
     end
 end

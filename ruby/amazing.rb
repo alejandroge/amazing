@@ -1,23 +1,26 @@
 #! env ruby -w
 
 class Amazing
-  $target = 0             # where GOTO goes
-  $result = ''
-
   def initialize(horizontal, vertical)
+    @target = 0
+    @result = ''
     doit(horizontal, vertical)
   end
 
+  def to_s
+    @result
+  end
+
   def clear
-    $result = ''
+    @result = ''
   end
 
   def println
-    $result = $result + "\n"
+    @result = @result + "\n"
   end
 
   def print(text)
-    $result = $result + text
+    @result = @result + text
   end
 
   def rnd(count)
@@ -25,7 +28,7 @@ class Amazing
   end
 
   def goto(lineno)
-    $target = lineno
+    @target = lineno
   end
 
   def doit(horizontal, vertical)
@@ -66,8 +69,8 @@ class Amazing
     s = 1
     goto(270)
 
-    while $target != -1
-      case $target
+    while @target != -1
+      case @target
         when 210
           if r != h
             goto(250)
@@ -568,7 +571,7 @@ class Amazing
         when 1190
           goto(210)
         when 1200
-          $target = -1
+          @target = -1
       end
 
     end
@@ -608,6 +611,6 @@ if __FILE__ == $0
   rows = ENV['rows'] ? ENV['rows'].to_i : 10
   cols = ENV['cols'] ? ENV['cols'].to_i : 10
   Amazing.new(cols, rows)
-  puts $result
+  puts @result
 end
 
